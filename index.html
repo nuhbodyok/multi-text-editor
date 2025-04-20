@@ -452,12 +452,11 @@
     <textarea id="paragraph2" placeholder="Enter text here..." spellcheck="false"></textarea>
 
     <div class="toolbar">
-        <button id="copyBtn" onclick="copyText()" title="Copy text to clipboard (Ctrl+Shift+C)">Copy</button>
-        <button onclick="undo()" title="Undo last action (Ctrl+Z)">Undo</button>
-        <button onclick="clearText()" title="Clear text (Ctrl+Shift+X)">Clear</button>
+        <button id="copyBtn" onclick="copyText()" title="Copy text to clipboard">Copy</button>
+        <button onclick="undo()" title="Undo last action">Undo</button>
+        <button onclick="clearText()" title="Clear text">Clear</button>
         <button id="importBtn" title="Import text from file">Import</button>
         <button id="exportBtn" title="Export text to file">Export</button>
-        <button id="shortcutsBtn" title="Show keyboard shortcuts">Shortcuts</button>
         <input type="file" id="fileInput" class="file-input" accept=".txt,.csv,.json,.md,.html,.css,.js">
     </div>
 
@@ -473,21 +472,18 @@
                 <input type="text" id="filterInput" class="small-input" placeholder="Find text" title="Text to search for">
                 <button onclick="copyLinesContaining()" title="Copy lines containing the search text">Copy Lines With</button>
                 <button onclick="cutLinesContaining()" title="Remove lines containing the search text">Cut Lines With</button>
+                <select id="textOperationsDropdown" class="small-input" onchange="handleTextOperations(this.value)">
+                    <option value="">Text Operations</option>
+                    <option value="upper">UPPERCASE</option>
+                    <option value="lower">lowercase</option>
+                    <option value="title">Title Case</option>
+                    <option value="sentence">Sentence case</option>
+                    <option value="trim">Trim Lines</option>
+                    <option value="removeEmpty">Remove Empty Lines</option>
+                    <option value="addLineNumbers">Add Line Numbers</option>
+                    <option value="reverseText">Reverse Text</option>
+                </select>
                 <button onclick="removeDuplicates()" title="Remove duplicate lines">Remove Duplicates</button>
-            </div>
-            
-            <div class="btn-group">
-                <button onclick="convertCase('upper')" title="Convert text to UPPERCASE">UPPERCASE</button>
-                <button onclick="convertCase('lower')" title="Convert text to lowercase">lowercase</button>
-                <button onclick="convertCase('title')" title="Convert Text To Title Case">Title Case</button>
-                <button onclick="convertCase('sentence')" title="Convert text to Sentence case">Sentence case</button>
-            </div>
-            
-            <div class="btn-group">
-                <button onclick="trimLines()" title="Trim whitespace from each line">Trim Lines</button>
-                <button onclick="removeEmptyLines()" title="Remove all empty lines">Remove Empty Lines</button>
-                <button onclick="addLineNumbers()" title="Add line numbers to the beginning of each line">Add Line Numbers</button>
-                <button onclick="reverseText()" title="Reverse all characters in the text">Reverse Text</button>
             </div>
         </div>
     </div>
@@ -503,6 +499,7 @@
             <textarea id="findReplaceInput" placeholder="Enter text to find (multi-line for multiple)"></textarea>
             <input type="text" id="replace" placeholder="Replace with">
             <div class="checkbox-wrapper">
+                <button onclick="searchAndReplaceText()" title="Replace text based on options">Replace</button>
                 <label class="checkbox-group">
                     <input type="checkbox" id="regexOption">
                     Use regex
@@ -516,7 +513,6 @@
                     Whole word only
                 </label>
             </div>
-            <button onclick="searchAndReplaceText()" title="Replace text based on options">Replace</button>
         </div>
     </div>
 
@@ -558,45 +554,7 @@
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- Keyboard Shortcuts Modal -->
-    <div id="shortcutsModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 style="margin: 0;">Keyboard Shortcuts</h3>
-                <span class="modal-close">&times;</span>
-            </div>
-            <table class="shortcut-table">
-                <tr>
-                    <td><span class="shortcut-key">Ctrl</span>+<span class="shortcut-key">Z</span></td>
-                    <td>Undo</td>
-                </tr>
-                <tr>
-                    <td><span class="shortcut-key">Ctrl</span>+<span class="shortcut-key">Shift</span>+<span class="shortcut-key">C</span></td>
-                    <td>Copy text</td>
-                </tr>
-                <tr>
-                    <td><span class="shortcut-key">Ctrl</span>+<span class="shortcut-key">Shift</span>+<span class="shortcut-key">X</span></td>
-                    <td>Clear text</td>
-                </tr>
-                <tr>
-                    <td><span class="shortcut-key">Ctrl</span>+<span class="shortcut-key">I</span></td>
-                    <td>Import file</td>
-                </tr>
-                <tr>
-                    <td><span class="shortcut-key">Ctrl</span>+<span class="shortcut-key">E</span></td>
-                    <td>Export file</td>
-                </tr>
-                <tr>
-                    <td><span class="shortcut-key">Ctrl</span>+<span class="shortcut-key">Shift</span>+<span class="shortcut-key">K</span></td>
-                    <td>Show shortcuts</td>
-                </tr>
-                <tr>
-                    <td><span class="shortcut-key">Esc</span></td>
-                    <td>Close modal</td>
-                </tr>
-            </table>
-        </div>
-    </div>
+
 
     <script>
     let undoStack = [];
@@ -610,18 +568,6 @@
         document.getElementById("fileInput").addEventListener("change", handleFileUpload);
         document.getElementById("importBtn").addEventListener("click", triggerFileInput);
         document.getElementById("exportBtn").addEventListener("click", exportToFile);
-        document.getElementById("shortcutsBtn").addEventListener("click", showShortcutsModal);
-        
-        // Set up modal close functionality
-        document.querySelector(".modal-close").addEventListener("click", hideShortcutsModal);
-        window.addEventListener("click", (event) => {
-            if (event.target === document.getElementById("shortcutsModal")) {
-                hideShortcutsModal();
-            }
-        });
-        
-        // Set up keyboard shortcuts
-        document.addEventListener("keydown", handleKeyboardShortcuts);
         
         // Load saved content from localStorage if available
         try {
@@ -749,55 +695,41 @@
         }
     }
 
-    function showShortcutsModal() {
-        document.getElementById("shortcutsModal").style.display = "block";
-    }
-
-    function hideShortcutsModal() {
-        document.getElementById("shortcutsModal").style.display = "none";
-    }
-
-    function handleKeyboardShortcuts(e) {
-        // Ctrl+Z: Undo
-        if (e.ctrlKey && e.key === 'z' && !e.shiftKey) {
-            e.preventDefault();
-            undo();
+    // Function to handle text operations from dropdown
+    function handleTextOperations(operation) {
+        if (!operation) return;
+        
+        const dropdown = document.getElementById("textOperationsDropdown");
+        
+        switch (operation) {
+            case "upper":
+                convertCase('upper');
+                break;
+            case "lower":
+                convertCase('lower');
+                break;
+            case "title":
+                convertCase('title');
+                break;
+            case "sentence":
+                convertCase('sentence');
+                break;
+            case "trim":
+                trimLines();
+                break;
+            case "removeEmpty":
+                removeEmptyLines();
+                break;
+            case "addLineNumbers":
+                addLineNumbers();
+                break;
+            case "reverseText":
+                reverseText();
+                break;
         }
         
-        // Ctrl+Shift+C: Copy
-        if (e.ctrlKey && e.shiftKey && e.key === 'C') {
-            e.preventDefault();
-            copyText();
-        }
-        
-        // Ctrl+Shift+X: Clear
-        if (e.ctrlKey && e.shiftKey && e.key === 'X') {
-            e.preventDefault();
-            clearText();
-        }
-        
-        // Ctrl+I: Import
-        if (e.ctrlKey && e.key === 'i' && !e.shiftKey) {
-            e.preventDefault();
-            triggerFileInput();
-        }
-        
-        // Ctrl+E: Export
-        if (e.ctrlKey && e.key === 'e' && !e.shiftKey) {
-            e.preventDefault();
-            exportToFile();
-        }
-        
-        // Ctrl+Shift+K: Shortcuts
-        if (e.ctrlKey && e.shiftKey && e.key === 'K') {
-            e.preventDefault();
-            showShortcutsModal();
-        }
-        
-        // Esc: Close modal
-        if (e.key === 'Escape') {
-            hideShortcutsModal();
-        }
+        // Reset dropdown selection
+        dropdown.value = "";
     }
 
     function updateTextStats() {
