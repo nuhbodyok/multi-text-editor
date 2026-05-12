@@ -8,7 +8,7 @@
         :root {
             --primary-color: #5D5CDE;
             --primary-hover: #4A49B5;
-            --secondary-color: #4A49B5;
+            /* FIX #2: removed redundant --secondary-color (was identical to --primary-hover) */
             --success-color: #28a745;
             --danger-color: #dc3545;
             --warning-color: #ffc107;
@@ -24,7 +24,8 @@
             --tooltip-bg: #333;
             --tooltip-color: #fff;
         }
-        
+
+        /* FIX #4: single dark-mode system via .dark on <html>, driven entirely by JS */
         .dark {
             --bg-color: #181818;
             --text-color: #e0e0e0;
@@ -35,24 +36,24 @@
             --toast-text: #e0e0e0;
             --toast-border: rgba(255, 255, 255, 0.1);
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
+            /* FIX #1: removed duplicate `margin: 0` — only one margin declaration needed */
+            margin: 0 auto;
             padding: 15px;
             background-color: var(--bg-color);
             color: var(--text-color);
             transition: background-color 0.3s, color 0.3s;
             max-width: 800px;
-            margin: 0 auto;
         }
-        
+
         h2 {
             margin-top: 0;
             margin-bottom: 10px;
             color: var(--primary-color);
         }
-        
+
         h3 {
             margin-bottom: 5px;
             margin-top: 15px;
@@ -61,35 +62,35 @@
             align-items: center;
             justify-content: space-between;
         }
-        
+
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
         }
-        
+
         .collapsible {
             cursor: pointer;
             flex-grow: 1;
         }
-        
+
         .collapse-icon {
             margin-left: 8px;
             font-size: 12px;
         }
-        
+
         .section-content {
             transition: max-height 0.3s ease-out;
             max-height: 1000px;
             overflow: hidden;
         }
-        
+
         .collapsed {
             max-height: 0;
             margin-bottom: 10px;
         }
-        
+
         textarea, input {
             width: 100%;
             box-sizing: border-box;
@@ -99,7 +100,7 @@
             border-radius: 4px;
             font-size: 16px;
         }
-        
+
         textarea {
             height: 150px;
             padding: 8px;
@@ -109,12 +110,12 @@
             overflow-x: auto;
             tab-size: 4;
         }
-        
+
         input {
             padding: 5px 8px;
             margin-bottom: 3px;
         }
-        
+
         .toolbar {
             display: flex;
             align-items: center;
@@ -122,7 +123,7 @@
             flex-wrap: wrap;
             margin-bottom: 10px;
         }
-        
+
         button {
             background-color: var(--primary-color);
             color: white;
@@ -134,35 +135,36 @@
             white-space: nowrap;
             transition: background-color 0.2s, transform 0.1s;
         }
-        
+
         button:hover {
             background-color: var(--primary-hover);
         }
-        
+
         button:active {
             transform: scale(0.95);
         }
-        
+
         .btn-small {
             padding: 2px 8px;
             font-size: 12px;
         }
-        
+
+        /* FIX #2: .btn-secondary now uses --primary-hover directly since --secondary-color was removed */
         .btn-secondary {
-            background-color: var(--secondary-color);
+            background-color: var(--primary-hover);
         }
-        
+
         .small-input {
             width: 150px;
         }
-        
+
         .btn-group {
             display: flex;
             gap: 5px;
             flex-wrap: wrap;
             margin-bottom: 5px;
         }
-        
+
         /* Stats bar */
         .stats-bar {
             display: flex;
@@ -171,7 +173,7 @@
             font-size: 12px;
             color: var(--text-color);
         }
-        
+
         /* Toasts */
         .toast-container {
             position: fixed;
@@ -179,7 +181,7 @@
             right: 20px;
             z-index: 1000;
         }
-        
+
         .toast {
             background-color: var(--toast-bg);
             color: var(--toast-text);
@@ -195,28 +197,17 @@
             align-items: center;
             border-left: 3px solid var(--primary-color);
         }
-        
+
         .toast.show {
             opacity: 1;
             transform: translateY(0);
         }
-        
-        .toast.success {
-            border-left-color: var(--success-color);
-        }
-        
-        .toast.error {
-            border-left-color: var(--danger-color);
-        }
-        
-        .toast.info {
-            border-left-color: var(--info-color);
-        }
-        
-        .toast.warning {
-            border-left-color: var(--warning-color);
-        }
-        
+
+        .toast.success { border-left-color: var(--success-color); }
+        .toast.error   { border-left-color: var(--danger-color); }
+        .toast.info    { border-left-color: var(--info-color); }
+        .toast.warning { border-left-color: var(--warning-color); }
+
         /* Checkbox styling */
         .checkbox-group {
             display: flex;
@@ -224,12 +215,12 @@
             margin: 5px 0;
             cursor: pointer;
         }
-        
+
         .checkbox-group input[type="checkbox"] {
             width: auto;
             margin-right: 5px;
         }
-        
+
         /* Loading spinner */
         .spinner {
             display: inline-block;
@@ -241,17 +232,17 @@
             border-top-color: white;
             animation: spin 1s linear infinite;
         }
-        
+
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-        
+
         /* Tooltip */
         .tooltip {
             position: relative;
             display: inline-block;
         }
-        
+
         .tooltip .tooltip-text {
             visibility: hidden;
             background-color: var(--tooltip-bg);
@@ -269,17 +260,17 @@
             white-space: nowrap;
             font-size: 12px;
         }
-        
+
         .tooltip:hover .tooltip-text {
             visibility: visible;
             opacity: 1;
         }
-        
+
         /* File input styling */
         .file-input {
             display: none;
         }
-        
+
         .file-label {
             display: inline-block;
             background-color: var(--primary-color);
@@ -291,61 +282,61 @@
             white-space: nowrap;
             transition: background-color 0.2s;
         }
-        
+
         .file-label:hover {
             background-color: var(--primary-hover);
         }
-        
+
         /* Tabs for options */
         .tabs {
             display: flex;
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 10px;
         }
-        
+
         .tab {
             padding: 5px 10px;
             cursor: pointer;
             border-bottom: 2px solid transparent;
         }
-        
+
         .tab.active {
             border-bottom-color: var(--primary-color);
             color: var(--primary-color);
         }
-        
+
         /* Responsive design */
         @media (max-width: 480px) {
             .toolbar, .btn-group {
                 flex-direction: column;
                 align-items: stretch;
             }
-            
+
             .small-input {
                 width: 100%;
             }
-            
+
             .btn-group button {
                 width: 100%;
             }
-            
+
             .stats-bar {
                 flex-direction: column;
                 align-items: flex-start;
             }
         }
-        
+
         /* Additional fields */
         .extra-fields {
             display: flex;
             gap: 5px;
             margin-bottom: 5px;
         }
-        
+
         .extra-fields input {
             flex: 1;
         }
-        
+
         /* Keyboard shortcuts modal */
         .modal {
             display: none;
@@ -358,7 +349,7 @@
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.4);
         }
-        
+
         .modal-content {
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -370,31 +361,31 @@
             max-width: 500px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        
+
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
         }
-        
+
         .modal-close {
             color: var(--text-color);
             font-size: 24px;
             font-weight: bold;
             cursor: pointer;
         }
-        
+
         .shortcut-table {
             width: 100%;
             border-collapse: collapse;
         }
-        
+
         .shortcut-table td {
             padding: 5px;
             border-bottom: 1px solid var(--border-color);
         }
-        
+
         .shortcut-key {
             display: inline-block;
             padding: 2px 5px;
@@ -403,21 +394,10 @@
             margin-right: 5px;
             font-family: monospace;
         }
-        
-        /* Apply dark mode based on system preference */
-        @media (prefers-color-scheme: dark) {
-            body:not(.light-mode) {
-                --bg-color: #181818;
-                --text-color: #e0e0e0;
-                --border-color: #444444;
-                --input-bg: #282828;
-                --section-bg: #222222;
-                --toast-bg: rgba(40, 40, 40, 0.9);
-                --toast-text: #e0e0e0;
-                --toast-border: rgba(255, 255, 255, 0.1);
-            }
-        }
-        
+
+        /* FIX #4: removed conflicting @media (prefers-color-scheme: dark) block that targeted
+           body:not(.light-mode) — dark mode is now handled entirely by the JS .dark class on <html> */
+
         .checkbox-wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -427,22 +407,19 @@
     </style>
 </head>
 <body>
-    <!-- Dark mode detector -->
+    <!-- FIX #4: single dark-mode system — JS adds .dark to <html>, CSS .dark {} handles vars -->
     <script>
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark');
-        }
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-            if (event.matches) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        });
+        (function () {
+            var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+            if (mq && mq.matches) document.documentElement.classList.add('dark');
+            if (mq) mq.addEventListener('change', function (e) {
+                document.documentElement.classList[e.matches ? 'add' : 'remove']('dark');
+            });
+        })();
     </script>
 
     <h2>Text Manipulation Tools</h2>
-    
+
     <div class="stats-bar">
         <div id="characterCount">0 characters</div>
         <div id="wordCount">0 words</div>
@@ -463,7 +440,8 @@
     <div class="section-container">
         <h3>
             <div class="section-header">
-                <span class="collapsible" onclick="toggleSection('basicToolsSection')">Basic Tools</span>
+                <!-- FIX #3: pass event explicitly instead of relying on implicit global window.event -->
+                <span class="collapsible" onclick="toggleSection('basicToolsSection', event)">Basic Tools</span>
                 <span class="collapse-icon">▼</span>
             </div>
         </h3>
@@ -491,7 +469,7 @@
     <div class="section-container">
         <h3>
             <div class="section-header">
-                <span class="collapsible" onclick="toggleSection('findReplaceSection')">Find and Replace</span>
+                <span class="collapsible" onclick="toggleSection('findReplaceSection', event)">Find and Replace</span>
                 <span class="collapse-icon">▼</span>
             </div>
         </h3>
@@ -519,7 +497,7 @@
     <div class="section-container">
         <h3>
             <div class="section-header">
-                <span class="collapsible" onclick="toggleSection('modifyTextSection')">Modify Text</span>
+                <span class="collapsible" onclick="toggleSection('modifyTextSection', event)">Modify Text</span>
                 <span class="collapse-icon">▼</span>
             </div>
         </h3>
@@ -537,7 +515,7 @@
     <div class="section-container">
         <h3>
             <div class="section-header">
-                <span class="collapsible" onclick="toggleSection('sortingSection')">Sorting and Shuffling</span>
+                <span class="collapsible" onclick="toggleSection('sortingSection', event)">Sorting and Shuffling</span>
                 <span class="collapse-icon">▼</span>
             </div>
         </h3>
@@ -554,41 +532,53 @@
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
-
-
     <script>
     let undoStack = [];
     let currentUndoPosition = -1;
     const MAX_UNDO_STACK = 100;
-    
+
+    // FIX #6: debounce timer for undo saves triggered by typing
+    let saveDebounceTimer = null;
+
+    // ─── FIX #9: single helper replaces 15+ repeated localStorage try/catch blocks ───
+    function saveToStorage(value) {
+        try {
+            localStorage.setItem("textToolContent", value);
+        } catch (error) {
+            console.error("Error saving to localStorage:", error);
+            if (error.name === "QuotaExceededError") {
+                showToast("Warning: Couldn't save to local storage (storage limit reached)", "warning");
+            }
+        }
+    }
+
     // Initialize storage and load saved content
     function initializeApp() {
-        // Add event listeners
         document.getElementById("paragraph2").addEventListener("input", handleTextInput);
         document.getElementById("fileInput").addEventListener("change", handleFileUpload);
         document.getElementById("importBtn").addEventListener("click", triggerFileInput);
         document.getElementById("exportBtn").addEventListener("click", exportToFile);
-        
-        // Load saved content from localStorage if available
+
         try {
             const savedText = localStorage.getItem("textToolContent");
             if (savedText) {
                 document.getElementById("paragraph2").value = savedText;
                 updateTextStats();
-                saveState(); // Initialize undo stack with loaded content
+                saveState();
             } else {
-                saveState(); // Initialize undo stack with empty content
+                saveState();
             }
         } catch (error) {
             console.error("Error loading saved content:", error);
-            saveState(); // Initialize undo stack anyway
+            saveState();
         }
-        
-        // Initialize collapsible sections
+
+        // Restore collapsed section states
         document.querySelectorAll(".collapsible").forEach(section => {
-            const sectionId = section.getAttribute("onclick").match(/toggleSection\('(.+?)'\)/)[1];
+            const match = section.getAttribute("onclick").match(/toggleSection\('(.+?)'/);
+            if (!match) return;
+            const sectionId = match[1];
             const savedState = localStorage.getItem(`section_${sectionId}`);
-            
             if (savedState === "collapsed") {
                 const content = document.getElementById(sectionId);
                 content.classList.add("collapsed");
@@ -597,45 +587,30 @@
         });
     }
 
+    // FIX #6: debounce saveState on typing so undo captures meaningful pauses, not every keystroke
     function handleTextInput() {
-        saveState();
+        clearTimeout(saveDebounceTimer);
+        saveDebounceTimer = setTimeout(saveState, 500);
         updateTextStats();
-        // Save to localStorage
-        try {
-            localStorage.setItem("textToolContent", document.getElementById("paragraph2").value);
-        } catch (error) {
-            console.error("Error saving to localStorage:", error);
-            // If localStorage fails (e.g., quota exceeded), show a notification
-            if (error.name === "QuotaExceededError") {
-                showToast("Warning: Couldn't save to local storage (storage limit reached)", "warning");
-            }
-        }
+        saveToStorage(document.getElementById("paragraph2").value);
     }
 
     function handleFileUpload(event) {
         const file = event.target.files[0];
         if (!file) return;
-        
+
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             const content = e.target.result;
             document.getElementById("paragraph2").value = content;
             updateTextStats();
             saveState();
+            saveToStorage(content);
             showToast(`Imported "${file.name}" successfully`, "success");
-            
-            // Save to localStorage
-            try {
-                localStorage.setItem("textToolContent", content);
-            } catch (error) {
-                console.error("Error saving to localStorage:", error);
-            }
         };
-        
-        reader.onerror = function() {
+        reader.onerror = function () {
             showToast("Error reading file", "error");
         };
-        
         reader.readAsText(file);
     }
 
@@ -643,47 +618,32 @@
         document.getElementById("fileInput").click();
     }
 
+    // FIX #5 + FIX #12: removed dead Blob URL (never used/revoked), replaced window.open export
+    // with a proper anchor-download — works on GitHub Pages without popup blockers
     function exportToFile() {
         const text = document.getElementById("paragraph2").value;
         if (!text.trim()) {
             showToast("Nothing to export", "warning");
             return;
         }
-        
-        // Create a blob and a link
         const blob = new Blob([text], { type: "text/plain" });
         const url = URL.createObjectURL(blob);
-        
-        // Create temporary link and trigger download
-        showToast("Right-click on text and use 'Save As' to download", "info", 5000);
-        
-        // Open a new window/tab with just the text for saving
-        const exportWindow = window.open();
-        if (exportWindow) {
-            exportWindow.document.write(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Export Text</title>
-                    <style>
-                        body { font-family: monospace; white-space: pre; padding: 20px; }
-                    </style>
-                </head>
-                <body>
-                    ${text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}
-                </body>
-                </html>
-            `);
-        } else {
-            showToast("Could not open export window. Check popup blocker settings.", "error");
-        }
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "export.txt";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast("File downloaded", "success");
     }
 
-    function toggleSection(sectionId) {
+    // FIX #3: accepts explicit event parameter — no longer relies on implicit window.event
+    function toggleSection(sectionId, event) {
         const section = document.getElementById(sectionId);
         const header = event.currentTarget;
         const icon = header.parentElement.querySelector(".collapse-icon");
-        
+
         if (section.classList.contains("collapsed")) {
             section.classList.remove("collapsed");
             icon.textContent = "▼";
@@ -695,40 +655,21 @@
         }
     }
 
-    // Function to handle text operations from dropdown
     function handleTextOperations(operation) {
         if (!operation) return;
-        
         const dropdown = document.getElementById("textOperationsDropdown");
-        
+
         switch (operation) {
-            case "upper":
-                convertCase('upper');
-                break;
-            case "lower":
-                convertCase('lower');
-                break;
-            case "title":
-                convertCase('title');
-                break;
-            case "sentence":
-                convertCase('sentence');
-                break;
-            case "trim":
-                trimLines();
-                break;
-            case "removeEmpty":
-                removeEmptyLines();
-                break;
-            case "addLineNumbers":
-                addLineNumbers();
-                break;
-            case "reverseText":
-                reverseText();
-                break;
+            case "upper":         convertCase('upper');      break;
+            case "lower":         convertCase('lower');      break;
+            case "title":         convertCase('title');      break;
+            case "sentence":      convertCase('sentence');   break;
+            case "trim":          trimLines();               break;
+            case "removeEmpty":   removeEmptyLines();        break;
+            case "addLineNumbers":addLineNumbers();          break;
+            case "reverseText":   reverseText();             break;
         }
-        
-        // Reset dropdown selection
+
         dropdown.value = "";
     }
 
@@ -737,7 +678,7 @@
         const characterCount = text.length;
         const wordCount = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
         const lineCount = text === "" ? 0 : text.split("\n").length;
-        
+
         document.getElementById("characterCount").textContent = `${characterCount} characters`;
         document.getElementById("wordCount").textContent = `${wordCount} words`;
         document.getElementById("lineCount").textContent = `${lineCount} lines`;
@@ -747,40 +688,28 @@
         const toast = document.createElement("div");
         toast.className = `toast ${type}`;
         toast.textContent = message;
-        
+
         const toastContainer = document.getElementById("toastContainer");
         toastContainer.appendChild(toast);
-        
-        // Trigger reflow to ensure animation works
-        toast.offsetHeight;
-        
-        // Show toast
+
+        toast.offsetHeight; // trigger reflow for animation
         toast.classList.add("show");
-        
-        // Remove toast after duration
+
         setTimeout(() => {
             toast.classList.remove("show");
-            setTimeout(() => {
-                toastContainer.removeChild(toast);
-            }, 300); // Wait for fade out animation
+            setTimeout(() => toastContainer.removeChild(toast), 300);
         }, duration);
     }
 
     function saveState() {
         const text = document.getElementById("paragraph2").value;
-        
-        // Only save if the content has changed
         if (undoStack.length === 0 || undoStack[currentUndoPosition] !== text) {
-            // If we're in the middle of the undo stack, truncate it
             if (currentUndoPosition < undoStack.length - 1) {
                 undoStack = undoStack.slice(0, currentUndoPosition + 1);
             }
-            
-            // Add the new state
             undoStack.push(text);
             currentUndoPosition = undoStack.length - 1;
-            
-            // Limit stack size
+
             if (undoStack.length > MAX_UNDO_STACK) {
                 undoStack.shift();
                 currentUndoPosition--;
@@ -793,13 +722,7 @@
             currentUndoPosition--;
             document.getElementById("paragraph2").value = undoStack[currentUndoPosition];
             updateTextStats();
-            
-            // Update localStorage
-            try {
-                localStorage.setItem("textToolContent", undoStack[currentUndoPosition]);
-            } catch (error) {
-                console.error("Error saving to localStorage:", error);
-            }
+            saveToStorage(undoStack[currentUndoPosition]);
         } else {
             showToast("Nothing to undo", "info");
         }
@@ -810,29 +733,23 @@
         const originalText = copyBtn.textContent;
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
+
         if (!text.trim()) {
             showToast("Nothing to copy", "info");
             return;
         }
-        
+
         copyBtn.innerHTML = '<span class="spinner"></span>Copying...';
-        
-        // Try to copy to clipboard
+
         navigator.clipboard.writeText(text)
             .then(() => {
                 copyBtn.textContent = "Copied!";
-                setTimeout(() => {
-                    copyBtn.textContent = originalText;
-                }, 1500);
+                setTimeout(() => { copyBtn.textContent = originalText; }, 1500);
                 showToast("Text copied to clipboard", "success");
             })
             .catch(err => {
                 console.error('Failed to copy text: ', err);
                 copyBtn.textContent = originalText;
-                showToast("Failed to copy text", "error");
-                
-                // Fallback: Select the text for manual copying
                 textArea.select();
                 showToast("Text selected. Use Ctrl+C to copy", "info");
             });
@@ -844,18 +761,10 @@
             showToast("Text is already empty", "info");
             return;
         }
-        
         saveState();
         textArea.value = '';
         updateTextStats();
-        
-        // Update localStorage
-        try {
-            localStorage.setItem("textToolContent", "");
-        } catch (error) {
-            console.error("Error saving to localStorage:", error);
-        }
-        
+        saveToStorage("");
         showToast("Text cleared", "info");
     }
 
@@ -864,34 +773,27 @@
         const replaceText = document.getElementById("replace").value;
         const textArea = document.getElementById("paragraph2");
         let content = textArea.value;
-        
+
         if (!findTexts.trim()) {
             showToast("Enter text to find", "warning");
             return;
         }
-        
+
         saveState();
-        
+
         const useRegex = document.getElementById("regexOption").checked;
         const caseSensitive = document.getElementById("caseSensitiveOption").checked;
         const wholeWord = document.getElementById("wholeWordOption").checked;
-        
+
         try {
             let replacementCount = 0;
-            
+
             if (useRegex) {
-                // Handle regex replacement
                 const findArr = findTexts.split("\n").filter(Boolean);
-                
                 findArr.forEach(findText => {
                     try {
                         let flags = caseSensitive ? 'g' : 'gi';
-                        let pattern = findText;
-                        
-                        if (wholeWord) {
-                            pattern = `\\b${pattern}\\b`;
-                        }
-                        
+                        let pattern = wholeWord ? `\\b${findText}\\b` : findText;
                         const regex = new RegExp(pattern, flags);
                         const matches = content.match(regex);
                         replacementCount += matches ? matches.length : 0;
@@ -902,59 +804,40 @@
                     }
                 });
             } else {
-                // Handle normal text replacement
                 const findArr = findTexts.split("\n").filter(Boolean);
-                
                 findArr.forEach(findText => {
                     if (wholeWord) {
-                        // Handle whole word matching
                         const wordBoundaryPattern = new RegExp(`\\b${escapeRegExp(findText)}\\b`, caseSensitive ? 'g' : 'gi');
                         const matches = content.match(wordBoundaryPattern);
                         replacementCount += matches ? matches.length : 0;
                         content = content.replace(wordBoundaryPattern, replaceText);
+                    } else if (!caseSensitive) {
+                        const pattern = new RegExp(escapeRegExp(findText), 'gi');
+                        const matches = content.match(pattern);
+                        replacementCount += matches ? matches.length : 0;
+                        content = content.replace(pattern, replaceText);
                     } else {
-                        // Simple string replacement
-                        if (!caseSensitive) {
-                            // Case-insensitive replacement (have to use regex)
-                            const pattern = new RegExp(escapeRegExp(findText), 'gi');
-                            const matches = content.match(pattern);
-                            replacementCount += matches ? matches.length : 0;
-                            content = content.replace(pattern, replaceText);
-                        } else {
-                            // Case-sensitive, can use string methods
-                            const tempContent = content;
-                            // Count occurrences first
-                            let tempCount = 0;
-                            let pos = tempContent.indexOf(findText);
-                            while (pos !== -1) {
-                                tempCount++;
-                                pos = tempContent.indexOf(findText, pos + 1);
-                            }
-                            replacementCount += tempCount;
-                            
-                            // Then do the replacement
-                            content = content.split(findText).join(replaceText);
+                        // Case-sensitive plain string: count then replace
+                        let pos = content.indexOf(findText);
+                        while (pos !== -1) {
+                            replacementCount++;
+                            pos = content.indexOf(findText, pos + 1);
                         }
+                        content = content.split(findText).join(replaceText);
                     }
                 });
             }
-            
+
             textArea.value = content;
             updateTextStats();
-            
-            // Save to localStorage
-            try {
-                localStorage.setItem("textToolContent", content);
-            } catch (error) {
-                console.error("Error saving to localStorage:", error);
-            }
-            
+            saveToStorage(content);
+
             if (replacementCount > 0) {
                 showToast(`Replaced ${replacementCount} occurrence${replacementCount !== 1 ? 's' : ''}`, "success");
             } else {
                 showToast("No matches found", "info");
             }
-            
+
         } catch (error) {
             if (error.message !== "Invalid regex") {
                 console.error("Error during replacement:", error);
@@ -963,189 +846,81 @@
         }
     }
 
-    // Helper function to escape special characters in a string for use in a regex
     function escapeRegExp(string) {
         return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
-    function addPrefix() {
-        const prefix = document.getElementById("prefixSuffixInput").value;
+    // ─── FIX #8: addPrefix and addSuffix consolidated into one shared helper ───────
+    // FIX #7: result variable is now local to each invocation — no race condition
+    function addPrefixOrSuffix(mode) {
+        const value = document.getElementById("prefixSuffixInput").value;
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!text.trim()) {
-            showToast("No text to modify", "warning");
-            return;
-        }
-        
-        if (!prefix) {
-            showToast("Enter a prefix in the input field", "warning");
-            return;
-        }
-        
+        const label = mode === 'prefix' ? 'prefix' : 'suffix';
+
+        if (!text.trim()) { showToast("No text to modify", "warning"); return; }
+        if (!value)        { showToast(`Enter a ${label} in the input field`, "warning"); return; }
+
         saveState();
-        
-        showToast("Adding prefix...", "info");
-        
-        // Use setTimeout to allow UI update before processing
+        showToast(`Adding ${label}...`, "info");
+
         setTimeout(() => {
             try {
                 const lines = text.split('\n');
-                let result = '';
-                
-                // Process in batches for very large texts
+                const transform = mode === 'prefix'
+                    ? line => value + line
+                    : line => line + value;
+
                 if (lines.length > 10000) {
+                    // Chunked processing for very large inputs; result is local here
+                    let result = '';
                     const processChunk = (startIdx, chunkSize) => {
                         const endIdx = Math.min(startIdx + chunkSize, lines.length);
-                        
                         for (let i = startIdx; i < endIdx; i++) {
-                            result += prefix + lines[i] + '\n';
+                            result += transform(lines[i]) + '\n';
                         }
-                        
-                        // If more chunks to process, schedule next chunk
                         if (endIdx < lines.length) {
                             setTimeout(() => processChunk(endIdx, chunkSize), 0);
                         } else {
-                            // All done, update text area (remove trailing newline if needed)
-                            textArea.value = result.slice(0, result.endsWith('\n') && !text.endsWith('\n') ? -1 : undefined);
+                            textArea.value = result.endsWith('\n') && !text.endsWith('\n')
+                                ? result.slice(0, -1)
+                                : result;
                             updateTextStats();
-                            
-                            // Save to localStorage
-                            try {
-                                localStorage.setItem("textToolContent", textArea.value);
-                            } catch (error) {
-                                console.error("Error saving to localStorage:", error);
-                            }
-                            
-                            showToast("Prefix added", "success");
+                            saveToStorage(textArea.value);
+                            showToast(`${label.charAt(0).toUpperCase() + label.slice(1)} added`, "success");
                         }
                     };
-                    
-                    // Start processing in chunks
                     processChunk(0, 10000);
                 } else {
-                    // For smaller texts, process all at once
-                    textArea.value = lines.map(line => prefix + line).join('\n');
+                    textArea.value = lines.map(transform).join('\n');
                     updateTextStats();
-                    
-                    // Save to localStorage
-                    try {
-                        localStorage.setItem("textToolContent", textArea.value);
-                    } catch (error) {
-                        console.error("Error saving to localStorage:", error);
-                    }
-                    
-                    showToast("Prefix added", "success");
+                    saveToStorage(textArea.value);
+                    showToast(`${label.charAt(0).toUpperCase() + label.slice(1)} added`, "success");
                 }
             } catch (error) {
-                console.error("Error adding prefix:", error);
-                showToast("Error adding prefix", "error");
+                console.error(`Error adding ${label}:`, error);
+                showToast(`Error adding ${label}`, "error");
             }
         }, 10);
     }
 
-    function addSuffix() {
-        const suffix = document.getElementById("prefixSuffixInput").value;
-        const textArea = document.getElementById("paragraph2");
-        const text = textArea.value;
-        
-        if (!text.trim()) {
-            showToast("No text to modify", "warning");
-            return;
-        }
-        
-        if (!suffix) {
-            showToast("Enter a suffix in the input field", "warning");
-            return;
-        }
-        
-        saveState();
-        
-        showToast("Adding suffix...", "info");
-        
-        // Use setTimeout to allow UI update before processing
-        setTimeout(() => {
-            try {
-                const lines = text.split('\n');
-                let result = '';
-                
-                // Process in batches for very large texts
-                if (lines.length > 10000) {
-                    const processChunk = (startIdx, chunkSize) => {
-                        const endIdx = Math.min(startIdx + chunkSize, lines.length);
-                        
-                        for (let i = startIdx; i < endIdx; i++) {
-                            result += lines[i] + suffix + '\n';
-                        }
-                        
-                        // If more chunks to process, schedule next chunk
-                        if (endIdx < lines.length) {
-                            setTimeout(() => processChunk(endIdx, chunkSize), 0);
-                        } else {
-                            // All done, update text area (remove trailing newline if needed)
-                            textArea.value = result.slice(0, result.endsWith('\n') && !text.endsWith('\n') ? -1 : undefined);
-                            updateTextStats();
-                            
-                            // Save to localStorage
-                            try {
-                                localStorage.setItem("textToolContent", textArea.value);
-                            } catch (error) {
-                                console.error("Error saving to localStorage:", error);
-                            }
-                            
-                            showToast("Suffix added", "success");
-                        }
-                    };
-                    
-                    // Start processing in chunks
-                    processChunk(0, 10000);
-                } else {
-                    // For smaller texts, process all at once
-                    textArea.value = lines.map(line => line + suffix).join('\n');
-                    updateTextStats();
-                    
-                    // Save to localStorage
-                    try {
-                        localStorage.setItem("textToolContent", textArea.value);
-                    } catch (error) {
-                        console.error("Error saving to localStorage:", error);
-                    }
-                    
-                    showToast("Suffix added", "success");
-                }
-            } catch (error) {
-                console.error("Error adding suffix:", error);
-                showToast("Error adding suffix", "error");
-            }
-        }, 10);
-    }
+    function addPrefix() { addPrefixOrSuffix('prefix'); }
+    function addSuffix() { addPrefixOrSuffix('suffix'); }
 
     function joinLines() {
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!text.trim()) {
-            showToast("No text to join", "warning");
-            return;
-        }
-        
+
+        if (!text.trim()) { showToast("No text to join", "warning"); return; }
+
         saveState();
-        
         showToast("Joining lines...", "info");
-        
-        // Use setTimeout to allow UI update before processing
+
         setTimeout(() => {
             try {
                 textArea.value = text.replace(/\n/g, ' ');
                 updateTextStats();
-                
-                // Save to localStorage
-                try {
-                    localStorage.setItem("textToolContent", textArea.value);
-                } catch (error) {
-                    console.error("Error saving to localStorage:", error);
-                }
-                
+                saveToStorage(textArea.value);
                 showToast("Lines joined", "success");
             } catch (error) {
                 console.error("Error joining lines:", error);
@@ -1158,34 +933,18 @@
         const separator = document.getElementById("prefixSuffixInput").value;
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!text.trim()) {
-            showToast("No text to split", "warning");
-            return;
-        }
-        
-        if (!separator) {
-            showToast("Enter a separator character in the input field", "warning");
-            return;
-        }
-        
+
+        if (!text.trim()) { showToast("No text to split", "warning"); return; }
+        if (!separator)   { showToast("Enter a separator character in the input field", "warning"); return; }
+
         saveState();
-        
         showToast("Splitting text...", "info");
-        
-        // Use setTimeout to allow UI update before processing
+
         setTimeout(() => {
             try {
                 textArea.value = text.split(separator).join('\n');
                 updateTextStats();
-                
-                // Save to localStorage
-                try {
-                    localStorage.setItem("textToolContent", textArea.value);
-                } catch (error) {
-                    console.error("Error saving to localStorage:", error);
-                }
-                
+                saveToStorage(textArea.value);
                 showToast("Text split by character", "success");
             } catch (error) {
                 console.error("Error splitting text:", error);
@@ -1197,36 +956,19 @@
     function sortLines() {
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!text.trim()) {
-            showToast("No text to sort", "warning");
-            return;
-        }
-        
+
+        if (!text.trim()) { showToast("No text to sort", "warning"); return; }
+
         saveState();
-        
         showToast("Sorting lines...", "info");
-        
-        // Use setTimeout to allow UI update before processing
+
         setTimeout(() => {
             try {
                 const lines = text.split('\n');
-                
-                // Sort lines alphabetically, case-insensitive
-                const sortedLines = lines.sort((a, b) => 
-                    a.toLowerCase().localeCompare(b.toLowerCase())
-                );
-                
-                textArea.value = sortedLines.join('\n');
+                lines.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+                textArea.value = lines.join('\n');
                 updateTextStats();
-                
-                // Save to localStorage
-                try {
-                    localStorage.setItem("textToolContent", textArea.value);
-                } catch (error) {
-                    console.error("Error saving to localStorage:", error);
-                }
-                
+                saveToStorage(textArea.value);
                 showToast("Lines sorted alphabetically", "success");
             } catch (error) {
                 console.error("Error during sorting:", error);
@@ -1238,49 +980,31 @@
     function sortNumerically() {
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!text.trim()) {
-            showToast("No text to sort", "warning");
-            return;
-        }
-        
+
+        if (!text.trim()) { showToast("No text to sort", "warning"); return; }
+
         saveState();
-        
         showToast("Sorting lines numerically...", "info");
-        
-        // Use setTimeout to allow UI update before processing
+
         setTimeout(() => {
             try {
                 const lines = text.split('\n');
-                let validNumbers = [];
-                let nonNumbers = [];
-                
-                // Separate numbers from non-numbers
-                for (let i = 0; i < lines.length; i++) {
-                    const line = lines[i].trim();
-                    if (line === '') {
-                        nonNumbers.push(lines[i]);
-                    } else if (!isNaN(parseFloat(line)) && isFinite(line)) {
-                        validNumbers.push(lines[i]);
+                const validNumbers = [];
+                const nonNumbers = [];
+
+                for (const line of lines) {
+                    const trimmed = line.trim();
+                    if (trimmed !== '' && !isNaN(parseFloat(trimmed)) && isFinite(trimmed)) {
+                        validNumbers.push(line);
                     } else {
-                        nonNumbers.push(lines[i]);
+                        nonNumbers.push(line);
                     }
                 }
-                
-                // Sort the numbers
+
                 validNumbers.sort((a, b) => parseFloat(a) - parseFloat(b));
-                
-                // Combine results
                 textArea.value = validNumbers.concat(nonNumbers).join('\n');
                 updateTextStats();
-                
-                // Save to localStorage
-                try {
-                    localStorage.setItem("textToolContent", textArea.value);
-                } catch (error) {
-                    console.error("Error saving to localStorage:", error);
-                }
-                
+                saveToStorage(textArea.value);
                 showToast("Lines sorted numerically", "success");
             } catch (error) {
                 console.error("Error during numerical sorting:", error);
@@ -1292,37 +1016,23 @@
     function shuffleLines() {
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!text.trim()) {
-            showToast("No text to shuffle", "warning");
-            return;
-        }
-        
+
+        if (!text.trim()) { showToast("No text to shuffle", "warning"); return; }
+
         saveState();
-        
         showToast("Shuffling lines...", "info");
-        
-        // Use setTimeout to allow UI update before processing
+
         setTimeout(() => {
             try {
                 const lines = text.split('\n');
-                
-                // Fisher-Yates shuffle algorithm
+                // Fisher-Yates shuffle
                 for (let i = lines.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [lines[i], lines[j]] = [lines[j], lines[i]];
                 }
-                
                 textArea.value = lines.join('\n');
                 updateTextStats();
-                
-                // Save to localStorage
-                try {
-                    localStorage.setItem("textToolContent", textArea.value);
-                } catch (error) {
-                    console.error("Error saving to localStorage:", error);
-                }
-                
+                saveToStorage(textArea.value);
                 showToast("Lines shuffled", "success");
             } catch (error) {
                 console.error("Error shuffling lines:", error);
@@ -1334,30 +1044,17 @@
     function reverseLines() {
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!text.trim()) {
-            showToast("No text to reverse", "warning");
-            return;
-        }
-        
+
+        if (!text.trim()) { showToast("No text to reverse", "warning"); return; }
+
         saveState();
-        
         showToast("Reversing line order...", "info");
-        
-        // Use setTimeout to allow UI update before processing
+
         setTimeout(() => {
             try {
-                const lines = text.split('\n');
-                textArea.value = lines.reverse().join('\n');
+                textArea.value = text.split('\n').reverse().join('\n');
                 updateTextStats();
-                
-                // Save to localStorage
-                try {
-                    localStorage.setItem("textToolContent", textArea.value);
-                } catch (error) {
-                    console.error("Error saving to localStorage:", error);
-                }
-                
+                saveToStorage(textArea.value);
                 showToast("Line order reversed", "success");
             } catch (error) {
                 console.error("Error during line reversal:", error);
@@ -1370,35 +1067,25 @@
         const filter = document.getElementById("filterInput").value.trim();
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!filter) {
-            showToast("Enter text to search for", "warning");
-            return;
-        }
-        
-        if (!text.trim()) {
-            showToast("No text to search in", "warning");
-            return;
-        }
-        
+
+        if (!filter)      { showToast("Enter text to search for", "warning"); return; }
+        if (!text.trim()) { showToast("No text to search in", "warning"); return; }
+
         showToast("Finding matching lines...", "info");
-        
-        // Use setTimeout to allow UI update before processing
+
         setTimeout(() => {
             try {
                 const lines = text.split('\n');
-                const matchingLines = lines.filter(line => 
+                const matchingLines = lines.filter(line =>
                     line.toLowerCase().includes(filter.toLowerCase())
                 );
-                
+
                 if (matchingLines.length === 0) {
                     showToast("No matching lines found", "info");
                     return;
                 }
-                
-                const result = matchingLines.join('\n');
-                
-                navigator.clipboard.writeText(result)
+
+                navigator.clipboard.writeText(matchingLines.join('\n'))
                     .then(() => {
                         showToast(`Copied ${matchingLines.length} matching line${matchingLines.length !== 1 ? 's' : ''} to clipboard`, "success");
                     })
@@ -1417,44 +1104,29 @@
         const filter = document.getElementById("filterInput").value.trim();
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!filter) {
-            showToast("Enter text to search for", "warning");
-            return;
-        }
-        
-        if (!text.trim()) {
-            showToast("No text to search in", "warning");
-            return;
-        }
-        
+
+        if (!filter)      { showToast("Enter text to search for", "warning"); return; }
+        if (!text.trim()) { showToast("No text to search in", "warning"); return; }
+
         saveState();
-        
         showToast("Removing matching lines...", "info");
-        
-        // Use setTimeout to allow UI update before processing
+
         setTimeout(() => {
             try {
                 const lines = text.split('\n');
-                const filteredLines = lines.filter(line => 
+                const filteredLines = lines.filter(line =>
                     !line.toLowerCase().includes(filter.toLowerCase())
                 );
-                
+
                 if (filteredLines.length === lines.length) {
                     showToast("No matching lines found", "info");
                     return;
                 }
-                
+
                 textArea.value = filteredLines.join('\n');
                 updateTextStats();
-                
-                // Save to localStorage
-                try {
-                    localStorage.setItem("textToolContent", textArea.value);
-                } catch (error) {
-                    console.error("Error saving to localStorage:", error);
-                }
-                
+                saveToStorage(textArea.value);
+
                 const removedCount = lines.length - filteredLines.length;
                 showToast(`Removed ${removedCount} matching line${removedCount !== 1 ? 's' : ''}`, "success");
             } catch (error) {
@@ -1467,37 +1139,26 @@
     function removeDuplicates() {
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!text.trim()) {
-            showToast("No text to process", "warning");
-            return;
-        }
-        
+
+        if (!text.trim()) { showToast("No text to process", "warning"); return; }
+
         saveState();
-        
         showToast("Removing duplicates...", "info");
-        
-        // Use setTimeout to allow UI update before processing
+
         setTimeout(() => {
             try {
                 const lines = text.split('\n');
                 const uniqueLines = Array.from(new Set(lines));
-                
+
                 if (uniqueLines.length === lines.length) {
                     showToast("No duplicate lines found", "info");
                     return;
                 }
-                
+
                 textArea.value = uniqueLines.join('\n');
                 updateTextStats();
-                
-                // Save to localStorage
-                try {
-                    localStorage.setItem("textToolContent", textArea.value);
-                } catch (error) {
-                    console.error("Error saving to localStorage:", error);
-                }
-                
+                saveToStorage(textArea.value);
+
                 const removedCount = lines.length - uniqueLines.length;
                 showToast(`Removed ${removedCount} duplicate line${removedCount !== 1 ? 's' : ''}`, "success");
             } catch (error) {
@@ -1510,21 +1171,16 @@
     function convertCase(caseType) {
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!text.trim()) {
-            showToast("No text to convert", "warning");
-            return;
-        }
-        
+
+        if (!text.trim()) { showToast("No text to convert", "warning"); return; }
+
         saveState();
-        
         showToast(`Converting to ${caseType} case...`, "info");
-        
-        // Use setTimeout to allow UI update before processing
+
         setTimeout(() => {
             try {
                 let result = '';
-                
+
                 switch (caseType) {
                     case 'upper':
                         result = text.toUpperCase();
@@ -1533,28 +1189,23 @@
                         result = text.toLowerCase();
                         break;
                     case 'title':
-                        result = text.replace(/\w\S*/g, (txt) => {
-                            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                        });
+                        // FIX #11: substr() is deprecated — replaced with slice()
+                        result = text.replace(/\w\S*/g, txt =>
+                            txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase()
+                        );
                         break;
                     case 'sentence':
-                        // Split by sentence ending punctuation, then capitalize first letter of each sentence
-                        result = text.replace(/(^\s*|[.!?]\s+)([a-z])/g, (match, p1, p2) => {
-                            return p1 + p2.toUpperCase();
-                        });
+                        // FIX #10: lowercase everything first, then capitalise sentence starters
+                        // Original only matched [a-z] so ALL-CAPS input was never fixed
+                        result = text.toLowerCase().replace(/(^\s*|[.!?]\s+)(\S)/g, (m, p1, p2) =>
+                            p1 + p2.toUpperCase()
+                        );
                         break;
                 }
-                
+
                 textArea.value = result;
                 updateTextStats();
-                
-                // Save to localStorage
-                try {
-                    localStorage.setItem("textToolContent", result);
-                } catch (error) {
-                    console.error("Error saving to localStorage:", error);
-                }
-                
+                saveToStorage(result);
                 showToast(`Text converted to ${caseType} case`, "success");
             } catch (error) {
                 console.error(`Error converting to ${caseType} case:`, error);
@@ -1566,32 +1217,17 @@
     function trimLines() {
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!text.trim()) {
-            showToast("No text to trim", "warning");
-            return;
-        }
-        
+
+        if (!text.trim()) { showToast("No text to trim", "warning"); return; }
+
         saveState();
-        
         showToast("Trimming whitespace...", "info");
-        
-        // Use setTimeout to allow UI update before processing
+
         setTimeout(() => {
             try {
-                const lines = text.split('\n');
-                const trimmedLines = lines.map(line => line.trim());
-                
-                textArea.value = trimmedLines.join('\n');
+                textArea.value = text.split('\n').map(line => line.trim()).join('\n');
                 updateTextStats();
-                
-                // Save to localStorage
-                try {
-                    localStorage.setItem("textToolContent", textArea.value);
-                } catch (error) {
-                    console.error("Error saving to localStorage:", error);
-                }
-                
+                saveToStorage(textArea.value);
                 showToast("Lines trimmed", "success");
             } catch (error) {
                 console.error("Error trimming lines:", error);
@@ -1603,37 +1239,26 @@
     function removeEmptyLines() {
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!text.trim()) {
-            showToast("No text to process", "warning");
-            return;
-        }
-        
+
+        if (!text.trim()) { showToast("No text to process", "warning"); return; }
+
         saveState();
-        
         showToast("Removing empty lines...", "info");
-        
-        // Use setTimeout to allow UI update before processing
+
         setTimeout(() => {
             try {
                 const lines = text.split('\n');
                 const nonEmptyLines = lines.filter(line => line.trim() !== '');
-                
+
                 if (nonEmptyLines.length === lines.length) {
                     showToast("No empty lines found", "info");
                     return;
                 }
-                
+
                 textArea.value = nonEmptyLines.join('\n');
                 updateTextStats();
-                
-                // Save to localStorage
-                try {
-                    localStorage.setItem("textToolContent", textArea.value);
-                } catch (error) {
-                    console.error("Error saving to localStorage:", error);
-                }
-                
+                saveToStorage(textArea.value);
+
                 const removedCount = lines.length - nonEmptyLines.length;
                 showToast(`Removed ${removedCount} empty line${removedCount !== 1 ? 's' : ''}`, "success");
             } catch (error) {
@@ -1646,40 +1271,22 @@
     function addLineNumbers() {
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!text.trim()) {
-            showToast("No text to number", "warning");
-            return;
-        }
-        
+
+        if (!text.trim()) { showToast("No text to number", "warning"); return; }
+
         saveState();
-        
         showToast("Adding line numbers...", "info");
-        
-        // Use setTimeout to allow UI update before processing
+
         setTimeout(() => {
             try {
                 const lines = text.split('\n');
-                
-                // Calculate padding based on number of lines
                 const padding = String(lines.length).length;
-                
-                const numberedLines = lines.map((line, index) => {
-                    // Pad number with spaces
+                textArea.value = lines.map((line, index) => {
                     const lineNum = String(index + 1).padStart(padding, ' ');
                     return `${lineNum}. ${line}`;
-                });
-                
-                textArea.value = numberedLines.join('\n');
+                }).join('\n');
                 updateTextStats();
-                
-                // Save to localStorage
-                try {
-                    localStorage.setItem("textToolContent", textArea.value);
-                } catch (error) {
-                    console.error("Error saving to localStorage:", error);
-                }
-                
+                saveToStorage(textArea.value);
                 showToast("Line numbers added", "success");
             } catch (error) {
                 console.error("Error adding line numbers:", error);
@@ -1691,30 +1298,17 @@
     function reverseText() {
         const textArea = document.getElementById("paragraph2");
         const text = textArea.value;
-        
-        if (!text.trim()) {
-            showToast("No text to reverse", "warning");
-            return;
-        }
-        
+
+        if (!text.trim()) { showToast("No text to reverse", "warning"); return; }
+
         saveState();
-        
         showToast("Reversing text...", "info");
-        
-        // Use setTimeout to allow UI update before processing
+
         setTimeout(() => {
             try {
-                // Reverse all characters
                 textArea.value = [...text].reverse().join('');
                 updateTextStats();
-                
-                // Save to localStorage
-                try {
-                    localStorage.setItem("textToolContent", textArea.value);
-                } catch (error) {
-                    console.error("Error saving to localStorage:", error);
-                }
-                
+                saveToStorage(textArea.value);
                 showToast("Text reversed", "success");
             } catch (error) {
                 console.error("Error reversing text:", error);
@@ -1723,7 +1317,6 @@
         }, 10);
     }
 
-    // Initialize the app when the page loads
     window.onload = initializeApp;
     </script>
 </body>
