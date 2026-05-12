@@ -26,7 +26,7 @@ A web-based tool for efficient text manipulation, offering a suite of features t
 
 ## Usage
 
-1. **Access the Tool**: Visit the live tool at [https://nuhbodyok.github.io/multiedit/](https://nuhbodyok.github.io/multiedit/).
+1. **Access the Tool**: Visit the live tool at [[https://nuhbodyok.github.io/multiedit/](https://nuhbodyok.github.io/multi-text-editor/)].
 
 2. **Input Text**: Paste or type your text into the input area.
 
